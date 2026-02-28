@@ -36,11 +36,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
   libunistring5 \
   libxml2 \
+  python3 \
+  python3-requests \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /opt/gettext /opt/gettext
 
 ENV PATH="/opt/gettext/bin:${PATH}"
+ENV LANG="C.UTF-8"
+ENV LC_ALL="C.UTF-8"
 
 WORKDIR /work
 
