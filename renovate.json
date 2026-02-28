@@ -1,0 +1,46 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard"
+  ],
+  "enabledManagers": [
+    "dockerfile",
+    "github-actions"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Track GNU gettext version in Dockerfile ARG",
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
+      "matchStrings": [
+        "ARG GETTEXT_VERSION=(?<currentValue>\\S+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "autotools-mirror/gettext",
+      "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions"
+    },
+    {
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "groupName": "docker-images"
+    },
+    {
+      "matchPackageNames": [
+        "autotools-mirror/gettext"
+      ],
+      "groupName": "gettext-version"
+    }
+  ]
+}
